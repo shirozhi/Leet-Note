@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+    sort(nums.begin(),nums.end());          //先将数组进行排序，方便后序的删除
+    int l=0,r=0;
+                                                       
+    while(r<nums.size())                //双指针删除重复元素，实际是覆盖(大概) 
+    {   
+        
+        if(nums[r]!=nums[l])
+        {
+            l++;
+            nums[l] =nums[r];
+        }
+        r++;
+    }
+
+    int sum=0;
+    for(int i=0;i<=l;i++)      //从0到l就是删除重复元素后的新数组
+    {                          //只加和>=0的书，保证最大值
+         if(nums[i]>=0)
+        sum+=nums[i];
+    }                       
+
+    if(sum<=0) return nums[nums.size()-1];  //如果数组全是负数就返回最后一个元素
+
+    return sum;
+    }
+};
